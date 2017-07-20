@@ -1,0 +1,8 @@
+{
+  "name": "Cloudike",
+  "description": "Cloudike helps OEMs, mobile and internet service providers to acquire, retain and upsell their customers by offering a compelling cloud experience.",
+  "repository": "https://github.com/d42f/ngbb",
+  "logo": "https://saas.cloudike.com/assets/logo.svg",
+  "keywords": ["cloudike", "saas"],
+  "image": "heroku/nodejs"
+}
