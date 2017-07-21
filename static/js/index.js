@@ -172,48 +172,36 @@ function incomingCall(message) {
 	}
 
 	setCallState(PROCESSING_CALL);
-	if (confirm('User ' + message.from
-			+ ' is calling you. Do you accept the call?')) {
-		showSpinner(videoInput, videoOutput);
+	showSpinner(videoInput, videoOutput);
 
-		var options = {
-			localVideo : videoInput,
-			remoteVideo : videoOutput,
-			onicecandidate : onIceCandidate
-		}
+	var options = {
+		localVideo : videoInput,
+		remoteVideo : videoOutput,
+		onicecandidate : onIceCandidate
+	}
 
-		webRtcPeer = kurentoUtils.WebRtcPeer.WebRtcPeerSendrecv(options,
-				function(error) {
+	webRtcPeer = kurentoUtils.WebRtcPeer.WebRtcPeerSendrecv(options,
+			function(error) {
+				if (error) {
+					console.error(error);
+					setCallState(NO_CALL);
+				}
+
+				this.generateOffer(function(error, offerSdp) {
 					if (error) {
 						console.error(error);
 						setCallState(NO_CALL);
 					}
-
-					this.generateOffer(function(error, offerSdp) {
-						if (error) {
-							console.error(error);
-							setCallState(NO_CALL);
-						}
-						var response = {
-							id : 'incomingCallResponse',
-							from : message.from,
-							callResponse : 'accept',
-							sdpOffer : offerSdp
-						};
-						sendMessage(response);
-					});
+					alert(message.from);
+					var response = {
+						id : 'incomingCallResponse',
+						from : message.from,
+						callResponse : 'accept',
+						sdpOffer : offerSdp
+					};
+					sendMessage(response);
 				});
-
-	} else {
-		var response = {
-			id : 'incomingCallResponse',
-			from : message.from,
-			callResponse : 'reject',
-			message : 'user declined'
-		};
-		sendMessage(response);
-		stop(true);
-	}
+			});
 }
 
 function register() {

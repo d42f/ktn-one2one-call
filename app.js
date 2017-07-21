@@ -197,7 +197,7 @@ CallMediaPipeline.prototype.release = function() {
  * Server startup
  */
 
-var server = http.createServer(app).listen(process.env.PORT || 8080, function() {
+var server = http.createServer(app).listen(process.env.PORT || 8888, function() {
     console.log('Kurento Tutorial started');
     console.log('Open with a WebRTC capable browser');
 });
