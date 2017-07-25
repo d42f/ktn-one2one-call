@@ -26,7 +26,13 @@ var http = require('http');
 
 var argv =
 {
-  ws_uri: "ws://34.253.237.168:8888/kurento"
+  ws_uri: "ws://34.252.47.131:8888/kurento"
+};
+
+var options =
+{
+  key:  fs.readFileSync('keys/server.key'),
+  cert: fs.readFileSync('keys/server.crt')
 };
 
 var app = express();
