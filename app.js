@@ -21,13 +21,15 @@ var ws = require('ws');
 var minimist = require('minimist');
 var url = require('url');
 var kurento = require('kurento-client');
-var fs    = require('fs');
-var http = require('http');
+var fs = require('fs');
+var https = require('https');
 
-var argv =
-{
-  ws_uri: "ws://34.252.47.131:8888/kurento"
-};
+var argv = minimist(process.argv.slice(2), {
+  default: {
+      as_uri: "https://localhost:8888/",
+      ws_uri: "ws://localhost:8888/kurento"
+  }
+});
 
 var options =
 {
@@ -203,9 +205,12 @@ CallMediaPipeline.prototype.release = function() {
  * Server startup
  */
 
-var server = http.createServer(app).listen(process.env.PORT || 8888, function() {
+var asUrl = url.parse(argv.as_uri);
+var port = asUrl.port;
+var server = https.createServer(options, app).listen(port, function() {
     console.log('Kurento Tutorial started');
-    console.log('Open with a WebRTC capable browser');
+    console.log('Open ' + url.format(asUrl) + ' with a WebRTC capable browser');
+    console.log('Kurrent server ' + argv.ws_uri);
 });
 
 var wss = new ws.Server({

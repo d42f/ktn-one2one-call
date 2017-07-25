@@ -192,7 +192,6 @@ function incomingCall(message) {
 						console.error(error);
 						setCallState(NO_CALL);
 					}
-					alert(message.from);
 					var response = {
 						id : 'incomingCallResponse',
 						from : message.from,

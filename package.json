@@ -3,7 +3,7 @@
   "version": "6.6.1",
   "private": true,
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js --ws_uri=ws://34.252.47.131:8888/kurento"
   },
   "dependencies": {
     "express": "~4.12.4",
